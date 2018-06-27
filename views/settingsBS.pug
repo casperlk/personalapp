@@ -7,24 +7,24 @@ block content
 
 
     form(method="post" action="saveAccount")
-      .formGroup
-        label First Name
-        input(type='text' name="firstName" placeholder='CurrentName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
-      .formGroup
-        label Last Name
-        input(type='submit' name="lastName" placeholder='CurrentLastName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
+      //- .formGroup
+      //-   label First Name
+      //-   input(type='text' name="firstName" placeholder='CurrentName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
+      //- .formGroup
+      //-   label Last Name
+      //-   input(type='submit' name="lastName" placeholder='CurrentLastName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
 
-                h1 List of All Skills
-                form(method="post" action="deleteSkill")
-                  ol
-                    each account in accounts
-                      li
-                        input(name="deleteName" value=skill.name type="checkbox")
-                        e #{account.firstName} --
-                        e #{account.userName} --
-                        i #{account.lastName}
-                  input(type="submit" value="Delete checked items")
-                  hr
+        //- h1 List of All Skills
+        //- form(method="post" action="deleteSkill")
+        //-   ol
+        //-     each account in accounts
+        //-       li
+        //-         input(name="deleteName" value=skill.name type="checkbox")
+        //-         e #{account.firstName} --
+        //-         e #{account.userName} --
+        //-         i #{account.lastName}
+        //-   input(type="submit" value="Delete checked items")
+        //-   hr
 
       .col-md-4.mb-3
         label(for='validationCustomUsername') First Name

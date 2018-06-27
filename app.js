@@ -5,7 +5,7 @@ path = require('path');
 cookieParser = require('cookie-parser');
 logger = require('morgan');
 accountsController = require('./controllers/accountsController'),
-settingsController = require('./controllers/settingsController')
+// settingsController = require('./controllers/settingsController')
 usersController = require('./controllers/usersController'),
 mongoose = require( 'mongoose' );
 mongoose.connect( 'mongodb://localhost/skillmastery' );
@@ -42,6 +42,7 @@ configPassport(passport)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(session({ secret: 'dn53dm99stkhlcdung3ntga4ly7c'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,6 +51,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// here is where we check on their logged in status
+app.use((req,res,next) => {
+  res.locals.loggedIn = false
+  console.log("user being authenticated")
+  if (req.isAuthenticated()){
+    console.log("user has been Authenticated")
+    res.locals.user = req.user
+    res.locals.loggedIn = true
+    if (req.user){
+      if (req.user.googleemail=='casperlk@brandeis.edu' || req.user.googleemail=='casperlesperancekerckhoff@gmail.com'){
+        console.log("Owner has logged in")
+        res.locals.status = 'owner'
+      } else {
+        console.log('User has logged in')
+        res.locals.status = 'user'
+      }
+    }
+  }
+  next()
+})
 
 app.get('/accounts', accountsController.getAllAccounts );
 
@@ -66,9 +88,11 @@ app.use('/formdemo', formdemoRouter);
 app.use('/users', usersRouter);
 app.use('/play', playRouter);
 // app.use('/settings', settingsController);
-// app.use('/settings', settingsController.showAccounts);
+app.use('/settings', settingsRouter);
 app.use('/square', squareRouter);
 //Authentication roots
+
+
 
 
 // here are the authentication routes
@@ -105,25 +129,7 @@ passport.authenticate('google', {
   failureRedirect : '/loginerror'
 }));
 
-// here is where we check on their logged in status
-app.use((req,res,next) => {
-  res.locals.loggedIn = false
-  if (req.isAuthenticated()){
-    console.log("user has been Authenticated")
-    res.locals.user = req.user
-    res.locals.loggedIn = true
-    if (req.user){
-      if (req.user.googleemail=='casperlk@brandeis.edu' || eq.user.googleemail=='casperlesperancekerckhoff@gmail.com'){
-        console.log("Owner has logged in")
-        res.locals.status = 'owner'
-      } else {
-        console.log('User has logged in')
-        res.locals.status = 'user'
-      }
-    }
-  }
-  next()
-})
+
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
@@ -132,7 +138,7 @@ function isLoggedIn(req, res, next) {
   res.locals.loggedIn = false
   if (req.isAuthenticated()){
     console.log("user has been Authenticated")
-    // res.locals.loggedIn = true //this is just me trying things // delete test
+    res.locals.loggedIn = true //this is just me trying things // delete test
     return next();
   } else {
     console.log("user has not been authenticated...")

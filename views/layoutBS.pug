@@ -18,9 +18,11 @@ html
         if loggedIn
           nav-item
             a.nav-link(href='/settings') Settings
+          nav-item
+            a.nav-link(href='/logout') Logout
         else
           nav-item
-            a.nav-link(href='/login') Login
+            a.nav-link(href='/login') Log in
 
     
     block content
