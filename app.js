@@ -105,6 +105,26 @@ passport.authenticate('google', {
   failureRedirect : '/loginerror'
 }));
 
+// here is where we check on their logged in status
+app.use((req,res,next) => {
+  res.locals.loggedIn = false
+  if (req.isAuthenticated()){
+    console.log("user has been Authenticated")
+    res.locals.user = req.user
+    res.locals.loggedIn = true
+    if (req.user){
+      if (req.user.googleemail=='casperlk@brandeis.edu' || eq.user.googleemail=='casperlesperancekerckhoff@gmail.com'){
+        console.log("Owner has logged in")
+        res.locals.status = 'owner'
+      } else {
+        console.log('User has logged in')
+        res.locals.status = 'user'
+      }
+    }
+  }
+  next()
+})
+
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
   console.log("checking to see if they are authenticated!")
@@ -112,6 +132,7 @@ function isLoggedIn(req, res, next) {
   res.locals.loggedIn = false
   if (req.isAuthenticated()){
     console.log("user has been Authenticated")
+    // res.locals.loggedIn = true //this is just me trying things // delete test
     return next();
   } else {
     console.log("user has not been authenticated...")
