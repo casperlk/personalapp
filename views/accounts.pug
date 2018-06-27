@@ -1,0 +1,25 @@
+extends layoutBS
+
+block content
+  h1 Add an Account
+  form(method="post" action="/saveAccount")
+    .formGroup
+      label account first name
+      input(type="text" name="firstName")
+    .formGroup
+      label account last name
+      input(type="text" name="lastName")
+    .formGroup
+      label userName
+      textarea(name="wowOK" rows="10" cols="80")
+    input(type="submit")
+  hr
+  h1 List of All Accounts
+  form(method="post" action="deleteAccount")
+    ol
+      each account in accounts
+        li
+          input(name="deleteName" value=account._id type="checkbox")
+          e #{account.firstName} -- #{account.lastName} --#{account.userName} --
+    input(type="submit" value="Delete checked items")
+    hr

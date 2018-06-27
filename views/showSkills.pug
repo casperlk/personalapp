@@ -1,0 +1,12 @@
+extends layoutBS
+
+block content
+  .jumbotron
+    h1 square
+    p Dazzling Mathematics!!
+  form(method="post")
+    input(type+"text" name="x")
+    input(type="submit")
+  hr
+  p
+    | the square of #{x} is #{square}

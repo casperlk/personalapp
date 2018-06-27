@@ -1,0 +1,44 @@
+extends layoutBS
+
+block content
+  .jumbotron
+    h1.display-4= title
+  .jumbotron
+
+
+    form(method="post" action="saveAccount")
+      .formGroup
+        label First Name
+        input(type='text' name="firstName" placeholder='CurrentName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
+      .formGroup
+        label Last Name
+        input(type='submit' name="lastName" placeholder='CurrentLastName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
+
+                h1 List of All Skills
+                form(method="post" action="deleteSkill")
+                  ol
+                    each account in accounts
+                      li
+                        input(name="deleteName" value=skill.name type="checkbox")
+                        e #{account.firstName} --
+                        e #{account.userName} --
+                        i #{account.lastName}
+                  input(type="submit" value="Delete checked items")
+                  hr
+
+      .col-md-4.mb-3
+        label(for='validationCustomUsername') First Name
+        .input-group
+          input(type='text' name="firstName" placeholder='CurrentName' aria-describedby='inputGroupPrepend' required='')#validationCustomUsername.form-control
+
+      .col-md-4.mb-3
+        label(for='validationCustomUsername') Last Name
+        .input-group
+          input#validationCustomUsername.form-control(type='text' name="lastName" placeholder='CurrentLastname' aria-describedby='inputGroupPrepend' required='')
+
+      .col-md-4.mb-3
+        label(for='validationCustomUsername') Username
+        .input-group
+          input#validationCustomUsername.form-control(type='text' name="username" placeholder='CurrentUsername' aria-describedby='inputGroupPrepend' required='')
+
+      button.btn.btn-primary(type='submit') Save Changes
