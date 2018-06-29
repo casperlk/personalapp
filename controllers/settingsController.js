@@ -5,7 +5,7 @@ console.log("loading the settings Controller")
 
 // this displays all of the accounts
 exports.getAllAccounts = ( req, res ) => {
-  console.log('in getAllAccounts')
+  console.log('in getAllAccounts (settings controller)')
   account.find( {} )
     .exec()
     .then( ( accounts ) => {
@@ -27,7 +27,7 @@ exports.getAllAccounts = ( req, res ) => {
 
 exports.saveAccount = ( req, res ) => {
   console.log("in saveAccount!")
-  console.dir(req)
+  console.dir(req.body)
   let newAccount = new account( {
     firstName: req.body.firstname,
     lastName: req.body.lastname,

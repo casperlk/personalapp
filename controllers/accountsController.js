@@ -32,7 +32,7 @@ exports.saveAccount = ( req, res ) => {
   let newAccount = new account( {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    userName: req.body.wowOK
+    userName: req.body.username
   } )
 
   console.log("account = "+newAccount)

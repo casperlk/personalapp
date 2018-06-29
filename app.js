@@ -6,7 +6,7 @@ cookieParser = require('cookie-parser');
 logger = require('morgan');
 accountsController = require('./controllers/accountsController'),
 // settingsController = require('./controllers/settingsController')
-usersController = require('./controllers/usersController'),
+// usersController = require('./controllers/usersController'),
 mongoose = require( 'mongoose' );
 mongoose.connect( 'mongodb://localhost/skillmastery' );
 const db = mongoose.connection;
@@ -153,10 +153,10 @@ app.get('/profile', isLoggedIn, function(req, res) {
   });
 });
 
-app.get('/users',usersController.getAllUsers)
-app.get('/users/:id',
-usersController.attachUser,
-usersController.getUser)
+// app.get('/users',usersController.getAllUsers)
+// app.get('/users/:id',
+// usersController.attachUser,
+// usersController.getUser)
 
 
 // catch 404 and forward to error handler
