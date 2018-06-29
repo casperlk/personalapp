@@ -38,7 +38,7 @@ exports.saveAccount = ( req, res ) => {
 
   newAccount.save()
     .then( () => {
-      res.redirect( '/accounts' );
+      res.redirect( '/settings' );
     } )
     .catch( error => {
       res.send( error );
